@@ -1,0 +1,90 @@
+@startuml
+    
+    Package "Controllers"{
+        class MainController{
+            + registerTransaction(imgFile)
+            + registerTransaction(pdfFile)
+            + registerTransaction(JsonData)
+            + registerFixedExpense(data)
+            + registerExpenseCategory(data)
+            + registerFixedRevenue(data)
+            + registerVariedRevenue(data)
+            + getTransactionHistory()
+
+        }
+    }
+
+    Package "Services"{
+        class MainService{
+            
+        }
+    }
+
+    Package "Models"{
+        class User {
+            -Long id
+            -String username
+            -String password
+        }
+
+        class Revenue{
+            -List<FixedRevenue> fixedRevenues
+            -List<VariedRevenue> variedRevenues
+
+            + getRevenue()
+            + getFixedRevenues()
+            +getVariedRevenues()
+        }
+
+        class FixedRevenue {
+            - String name
+            - Double amount
+            - Date receivedDate
+        }
+        class VariedRevenue {
+            - String name
+            - Double amount
+        }
+        class ExpenseCategory{
+            - String name
+            -List<Transaction> transactions
+            -List<FixedExpense> fixedExpenses
+        }
+        class FixedExpense{
+            -Double amount
+            -ExpenseCategory category
+            -Date billingDate
+            -Integer installment
+            -Double totalAmount
+            -Double fees
+            -List<Transaction> transactions
+
+            +Boolean isPaidOut()
+        }
+        class Transaction{
+            -Double amount  
+            -Date date
+            -ExpenseCategory expenseCategory
+            -BankAccount bankAccount
+        }
+        class BankAccount{
+            - String name
+            - PaymentMethod paymentMethod
+        }
+        enum PaymentMethod{
+            pix
+            credit
+            debit
+            money
+        }
+    }
+
+    ExpenseCategory "1" -- "0..n" FixedExpense
+    FixedExpense "1" -- "0..n" Transaction
+    ExpenseCategory "1" -- "0..n" Transaction
+    Transaction "1" -- "1" BankAccount
+    BankAccount "1" -- "1" PaymentMethod
+    Revenue "1" -- "0..n" FixedRevenue
+    Revenue "1" -- "0..n" VariedRevenue
+
+@enduml

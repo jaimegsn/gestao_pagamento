@@ -1,0 +1,25 @@
+- Registrar transações na aplicação via Imagem,PDF e Manualmente (ok)
+- Registrar Despesas Fixas (ok)
+- Registrar Despesas Fixas que têm Juros (ok)
+- Registrar Receitas Fixas (ok)
+- Registar Receitas Variadas (ok)
+
+- Categorizar despesas (alimento, moradia, entretenimento...) [ok]
+- Definir orçamentos para cada categoria de despesas
+
+- Sistema de alerta para notificar sobre o vencimento de despesas fixas (Integração com o Google Calendar ?)
+
+- Histórico de Transações
+- Comparação de despesas atuais com despesas passadas por categoria e por método de pagamento
+
+- Planejamento Financeiro a Longo Prazo, definindo metas de economia para aposentadoria, compra de casa, educação, viagem entre outros. 
+	- Pedir para o usuário definir uma data dessa meta
+	- Verificar com base no histórico de despesas/transações do usuário o nível de dificuldade dele atingir essa meta nesse tempo determinado por ele
+
+- Fornecer gráficos e relatórios
+	- Gráficos por categorias de despesas, qual categoria a pessoa está gastando mais
+
+Stack: Spring Boot
+
+
+Futuro: Como fazer isso rodar localmente no PC de alguem e salvar essas iformações via google cloud e localmente no Android
