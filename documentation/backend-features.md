@@ -225,3 +225,9 @@
 ### Feature 14: Provide data and reports (NOT IN UML)
 
 ### Feature 15: Alert and notification systems (integration with Google Calendar?) (NOT IN UML)
+
+### Feature 16: Simulate fee in expenses (NOT IN UML)
+
+### Feature 17: Collect debts and Collect debts with fee
+
+### Feature 18: Scheduled payment
