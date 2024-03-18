@@ -55,26 +55,37 @@
         class ExpenseService{
             + registerFixedExpense(obj)
             + getFixedExpense(id)
+            + updateFixedExpense(id,obj)
+            + deleteFixedExpense(id)
             + getAllFixedExpenses()
+
             + registerExpenseCategory(obj)
-            + setExpenseCategoryBudget(id,budget)
             + getExpenseCategory(id)
+            + updateExpenseCategory(id,obj)
+            + deleteExpenseCategory(id)
+            + getAllExpenseCategories()
+
             + getComparativeHistoryExpenseCategory(id)
             + getComparativeHistoryExpenseCategories()
             + getComparativeCurrentAmountExpenseCategory(id)
             + getTotalAmountComparativeHistoryExpenses()
             + getCurrentTotalAmountExpense()
+
+            + simulateFees(int months, fee, numberOfDelays, monthAmount)
+            + calculateAmountWithFee(fee, numberOfDelays, monthAmount)
         }
 
         class TransactionService{
             - convertImgDataToTransaction(imgData)
             - convertPdfToTransaction(pdfData)
+            
             + registerTransaction(obj)
             + registerTransaction(imgData)
             + registerTransaction(pdfData)
             + getTransaction(id)
-            + getTransactionHistory(number)
-            
+            + updateTransaction(id)
+            + getLatestTransaction(number)
+            + deleteTransaction(id)
         }
 
         class RevenueService{
@@ -128,17 +139,17 @@
             - String description
             - Double amount
             - Date receivedDate
-            - Boolean isRecurring
+            - Boolean isFixedAmount
             - Int paymentFrequencyInMonths
         }
         class VariedRevenue {
             - String name
             - String description
             - Double amount
-            - Date date
+            - Date receivedDate
             - Date deadLine
             - Boolean isSchedule
-            - Boolean isPaidOut
+            - Boolean isReceived
             - Integer numberOfDelays
             - Fee fee
 
@@ -150,18 +161,6 @@
             - Double budget
             - List<Transaction> transactions
             - List<FixedExpense> fixedExpenses
-
-            + deleteTransaction(transaction)
-            + editTransaction(transaction)
-            + addTransaction(transaction)
-            + getTransaction(transaction)
-            + getTransactions()
-
-            + deleteFixedExpense(fixedExpense)
-            + editFixedExpense(fixedExpense)
-            + addFixedExpense(fixedExpense)
-            +   getFixedExpense(fixedExpense)
-            + getFixedExpenses()
         }
         class FixedExpense{
             - String description
@@ -178,14 +177,6 @@
             - List<Transaction> transactions
 
             + Boolean isPaidOut()
-            + setFee(String fee)
-            + calculateAmountWithFee(fee, numberOfDelays, monthAmount)
-            + simulateFees(int months, fee, numberOfDelays, monthAmount)
-            + deleteTransaction(transaction)
-            + editTransaction(transaction)
-            + addTransaction(transaction)
-            + getTransaction(transaction)
-            + getTransactions()
         }
         enum Fee{
             SIMPLE_FEE,
