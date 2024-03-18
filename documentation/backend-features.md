@@ -231,3 +231,5 @@
 ### Feature 17: Collect debts and Collect debts with fee
 
 ### Feature 18: Scheduled payment
+
+### Feature 19: Demand Rent Automatically
