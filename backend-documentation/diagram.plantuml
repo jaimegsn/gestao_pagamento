@@ -1,0 +1,344 @@
+@startuml
+    
+    Package "Controllers"{
+        class ExpenseController{
+            + registerFixedExpense(JsonData)
+            + getFixedExpense(id)
+            + updateFixedExpense(JsonData)
+            + deleteFixedExpense(id)
+            + getAllFixedExpenses()
+
+            + registerExpenseCategory(JsonData)
+            + getExpenseCategory(id)
+            + updateExpenseCategory(JsonData)
+            + deleteExpenseCategory(id)
+            + getAllExpenseCategories()
+
+            + getComparativeHistoryLast12MonthsExpenseCategory(String category)
+            + getComparativeHistoryLast12MonthsExpenseCategories()
+            + getComparativeCurrentAmountExpenseCategory(String category)
+            + getComparativeHistoryLast12MonthsExpenses()
+            + getCurrentTotalAmountExpense()
+        }
+
+        class TransactionController{
+            + registerTransaction(imgFile)
+            + registerTransaction(pdfFile)
+            + registerTransaction(JsonData)
+            + getTransaction(id)
+            + getLatest20Transactions()
+            + updateTransaction(JsonData)
+            + deleteTransaction(id)
+
+            
+        }
+
+        class RevenueController{
+            + registerFixedRevenue(JsonData)
+            + getFixedRevenue(id)
+            + getAllFixedRevenues()
+            + updateFixedRevenue(JsonData)
+            + deleteFixedRevenue(id)
+
+            + registerVariedRevenue(JsonData)
+            + getVariedRevenue(id)
+            + getLatest20VariedRevenues()
+            + getLatestNotScheduled20VariedRevenues()
+            + getAllScheduledVariedRevenues()
+            + updateVariedRevenue(JsonData)
+            + deleteVariedRevenue(id)
+        }
+
+        class BankAccountController{
+            + registerBankAccount(JsonData)
+            + getBankAccount(id)
+            + getMostUsedBankAccounts()
+            + getAllBankAccounts()
+            + updateBankAccount(JsonData)
+            + deleteBankAccount(id)
+        }
+
+        class FinancePlanningController{
+            + registerEconomicGoal(JsonData)
+            + getFinancePlanning(id)
+            + getAllFinancePlannings()
+            + updateFinancePlanning(JsonData)
+            + deleteFinancePlanning(id)
+
+            + differenceBetweenCurrentExpenseAndGoalAmount()
+
+        }
+
+        class AuthController{
+            + register(JsonData)
+            + login(JsonData)
+        }
+    }
+
+    Package "Services"{
+        class ExpenseService{
+            + registerFixedExpense(obj)
+            + getFixedExpense(id)
+            + updateFixedExpense(id,obj)
+            + deleteFixedExpense(id)
+            + getAllFixedExpenses()
+
+            + registerExpenseCategory(obj)
+            + getExpenseCategory(id)
+            + updateExpenseCategory(id,obj)
+            + deleteExpenseCategory(id)
+            + getAllExpenseCategories()
+
+            + getComparativeHistoryLast12MonthsExpenseCategory(String category)
+            + getComparativeHistoryLast12MonthsExpenseCategories()
+            + getComparativeCurrentAmountExpenseCategory(String category)
+            + getComparativeHistoryLast12MonthsExpenses()
+            + getCurrentTotalAmountExpense()
+
+            + simulateFees(int months, fee, numberOfDelays, monthAmount)
+            + calculateAmountWithFee(fee, numberOfDelays, monthAmount)
+
+            - createExpenseLog(obj)
+            - getExpenseLog()
+            - updateExpenseLog(obj)
+            - deleteExpenseLog()
+        }
+
+        class TransactionService{
+            - convertImgDataToTransaction(imgData)
+            - convertPdfToTransaction(pdfData)
+            
+            + registerTransaction(obj)
+            + registerTransaction(imgData)
+            + registerTransaction(pdfData)
+            + getTransaction(id)
+            + getLatest20Transactions()
+            + updateTransaction(id,obj)
+            + deleteTransaction(id)
+
+            - createTransactionLog(obj)
+            - getTransactionLog()
+            - updateTransactionLog(obj)
+            - deleteTransactionLog()
+        }
+
+        class RevenueService{
+            + registerFixedRevenue(obj)
+            + getFixedRevenue(id)
+            + getAllFixedRevenues()
+            + updateFixedRevenue(id,obj)
+            + deleteFixedRevenue(id)
+
+            + registerVariedRevenue(obj)
+            + getVariedRevenue(id)
+            + getLatest20VariedRevenues()
+            + getLatestNotScheduled20VariedRevenues()
+            + getAllScheduledVariedRevenues()
+            + updateVariedRevenue(id,obj)
+            + deleteVariedRevenue(id)
+
+            - createRevenueLog(obj)
+            - getRevenueLog()
+            - updateRevenueLog(obj)
+            - deleteRevenueLog()
+        }
+
+        class BankAccountService{
+            + registerBankAccount(obj)
+            + getBankAccount(id)
+            + getMostUsedBankAccounts()
+            + getAllBankAccounts()
+            + updateBankAccount(id,obj)
+            + deleteBankAccount(id)
+        }
+
+        class FinancePlanningService{
+            + registerFinancePlanning(obj)
+            + getFinancePlanning(id)
+            + getAllFinancePlannings()
+            + updateFinancePlanning(id,obj)
+            + deleteFinancePlanning(id)
+
+            + differenceBetweenCurrentExpenseAndGoalAmount()
+            - userDontReachGoalAmountInMonth()
+            - checkDifficultyLevelOfEconomicGoal()
+            - userExceedsMonthlyGoalAmount()
+        }
+
+        class AuthService{
+            + register(obj)
+            + login(obj)
+        }
+    }
+
+    Package "Models"{
+        class User {
+            - Long id
+            - String username
+            - String password
+            - List<FinancePlanning> financePlanning
+        }
+
+        class FinancePlanning{
+            - Long id
+            - String name
+            - String description
+            - Date deadline
+            - Double amount
+            - String typeOfCurrency
+        }
+
+        class RevenueLog{
+            - Long id
+            - Double currentTotalRevenueAmountInMonth
+            - Double expectedRvenueAmountInMonth
+            - Double revenueAmountRemainsToReceive
+            - Date lastLogUpdate
+            - Date dateAdded
+        }
+
+        class FixedRevenue {
+            - Long id
+            - String name
+            - String description
+            - Double amount
+            - String typeOfCurrency
+            - Date receivedDate
+            - Boolean isFixedAmount
+            - Int paymentFrequencyInMonths
+            - Integer numberOfDelays
+            - Fee fee
+        }
+        class VariedRevenue {
+            - Long id
+            - String name
+            - String description
+            - Double amountPerMonth
+            - Double totalAmount
+            - String typeOfCurrency
+            - Date receivedDate
+            - Date deadLine
+            - Boolean isReceived
+            - Integer paymentFrequencyInMonths
+            - Boolean isRecurring
+            - Integer totalInstallments
+            - Integer currentInstallment
+            - Integer numberOfDelays
+            - Fee fee
+
+            + extendDeadLineWithFee()
+        }
+
+        'Comment: Class aimed at optimizing database search'
+        class ExpenseLog{
+            - Long id
+            - Date dateAdded
+            - Date dateUpdated
+            - Double totalExpensesAmountInMonth
+            - Double totalBudgetAmountIn
+            - Double totalSpendingCeilingLimit
+            - Map<String, Double[]> last12TotalExpensesAmountInEachMonth
+            - Map<String, Map<String, Double[]>> last12SpecificExpenseCategoyAmountInEachMonth
+        }
+        class ExpenseCategory{
+            - Long id
+            - String name
+            - Double amountInMonth
+            - Double budget
+            - Double spendingCeiling
+            - List<FixedExpense> fixedExpenses
+        }
+        class FixedExpense{
+            - Long id
+            - String name
+            - String description
+            - String observations
+            - String typeOfCurrency
+            - Double amountPerMonth
+            - Double totalAmount 
+            - ExpenseCategory category
+            - Int paymentFrequencyInMonths
+            - Date billingDate
+            - Integer totalInstallments
+            - Integer currentInstallment
+            - Boolean isRecurring
+            - Fee fee
+            - Integer numberOfDelays
+            - Boolean isPaidOut
+
+        }
+        enum Fee{
+            SIMPLE_FEE,
+            COMPOUND_FEE,
+            COSTUMIZED_FEE
+        }
+
+        'Comment: Class aimed at optimizing database search'
+        class TransactionLog{
+            - Long id
+            - Long totalTransactionsNumber
+            - Date lastLogUpdate
+
+            - Double avgTransactionsNumberPerDay
+            - Double avgTransactionsNumberPerMonth
+            - Double avgTransactionsNumberPerYear
+            - Double avgTransactionsAmountPerDay
+            - Double avgTransactionsAmountPerMonth
+            - Double avgTransactionsAmountPerYear
+
+            - Long transactionRevenueNumber
+            - Long transactionExpenseNumber
+
+            - Double totalRevenueAmountInMonth
+            - Double totalExpenseAmountInMonth
+            - Double totalRevenueAmountInYear
+            - Double totalExpenseAmountInYear
+
+            - Map<String, Double> avgTransactionPerMethodPayment
+            - Map<String, Double> avgTransactionPerMethodPaymentInAMonth
+            - Map<String, Double> avgTransactionPerMethodBankAccount
+            - Map<String, Double> avgTransactionPerBankAccountInAMonth
+        }
+        class Transaction{
+            - Long id
+            - String payer
+            - String receiver
+            - String description
+            - Double amount
+            - String typeOfCurrency
+            - Date date
+            - BankAccount bankAccount
+            - PaymentMethod paymentMethod
+        }
+        class BankAccount{
+            - Long id
+            - String name
+            - String color
+        }
+        enum PaymentMethod{
+            pix
+            credit
+            debit
+            money
+        }
+    }
+
+    User "1" -- "1" FinancePlanning
+
+    ExpenseCategory "1" -- "0..n" FixedExpense
+
+    Transaction "1" -- "1" BankAccount
+    BankAccount "1" -- "1" PaymentMethod
+
+    FixedRevenue "1" -- "1" Fee
+    VariedRevenue "1" -- "1" Fee
+    FixedExpense "1" -- "1" Fee
+
+    ExpenseController -- ExpenseService
+    TransactionController -- TransactionService
+    RevenueController -- RevenueService
+    BankAccountController -- BankAccountService
+    FinancePlanningController -- FinancePlanningService
+    AuthController -- AuthService
+    
+@enduml
