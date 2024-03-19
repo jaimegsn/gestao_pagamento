@@ -124,6 +124,18 @@
 - **Action**: Extract budget data in JSON and set it in the specified expense category
 - **Return**: Expense category is setted with a budget
 
+##### Scenario 4: Register with an JSON Data and a spending ceiling included in it (IN UML)
+
+- **Start**: Is received JSON data from the client to register a expense category with a spending ceiling
+- **Action**: Read JSON for extract expense category data with your spending ceiling and register it
+- **Return**: expense category is recorded with success
+
+##### Scenario 5: Setting the spending ceiling for a specific expense category with a JSON Data (IN UML)
+
+- **Start**: Is requested by the client to set the spending ceiling for a specific expense category
+- **Action**: Extract spending ceiling data in JSON and set it in the specified expense category
+- **Return**: Expense category is setted with a spending ceiling
+
 ### Feature 10: Get Expense Categories
 
 ##### Scenario 1: Get a specific expense category and your current values. (IN UML)
@@ -222,14 +234,16 @@
 - **Action**: Calculate the difference between the current expense and the current economic goal amount
 - **Return**: The value of the difference between the current expense amount and the current economic goal amount
 
-### Feature 14: Provide data and reports (NOT IN UML)
+### Feature 14: Provide data and reports
 
-### Feature 15: Alert and notification systems (integration with Google Calendar?) (NOT IN UML)
+### Feature 15: Alert and notification systems (integration with Google Calendar?)
 
-### Feature 16: Simulate fee in expenses (NOT IN UML)
+### Feature 16: Simulate fee in expenses
 
 ### Feature 17: Collect debts and Collect debts with fee
 
 ### Feature 18: Scheduled payment
 
 ### Feature 19: Demand Rent Automatically
+
+### Feature 20: Notify when you buy the same product cheaper in past purchases at other establishments
